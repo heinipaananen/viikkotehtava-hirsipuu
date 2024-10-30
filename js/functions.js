@@ -2,6 +2,10 @@ const input = document.querySelector('input')
 const output = document.querySelector('output')
 const span = document.querySelector('span')
 
+const guessCount = () => {
+
+}
+
 const words = [
     "programming",
     "javascript",
@@ -17,6 +21,7 @@ const words = [
 
 let randomizedWord = ''
 let maskedWord =  ''
+let attemps = 0
 
 const newGame = () => {
     const random = Math.floor(Math.random() * 10) + 1
@@ -24,10 +29,12 @@ const newGame = () => {
     maskedWord = "*".repeat(randomizedWord.length)
     console.log(randomizedWord)
     output.innerHTML = maskedWord
+    attemps = 0
+    span.textContent = attemps
 }
 
 const win = () => {
-    alert(`You have guessed right, the word is ${randomizedWord}.`)
+    alert(`You have guessed right, the word is ${randomizedWord}. You needed ${attemps} guesses!`)
     newGame()
 }
 
@@ -48,6 +55,8 @@ newGame ()
 input.addEventListener('keypress',(e) => {
     if (e.key ==='Enter') {
         e.preventDefault()
+        attemps++
+        span.textContent = attemps
 
         const guess = input.value
         if (guess.toLowerCase() === randomizedWord.toLowerCase()) {
